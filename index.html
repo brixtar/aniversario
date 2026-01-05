@@ -81,70 +81,60 @@
         <div class="slide-wrapper p-0">
           <img src="foto1.jpg" alt="Foto 1">
         </div>
-        <div class="absolute bottom-0 bg-gradient-to-t from-black to-transparent w-full p-6 text-white text-center italic">Aunque haya kilómetros de por medio, mi corazón late al ritmo de tu voz todos los días. Te amo infinito, Silvina.</div>
       </div>
 
       <div class="carousel-item">
         <div class="slide-wrapper p-0">
           <img src="foto2.jpg" alt="Foto 2">
         </div>
-        <div class="absolute bottom-0 bg-gradient-to-t from-black to-transparent w-full p-6 text-white text-center italic">La distancia solo es un número; lo que siento por vos no entra en ningún mapa. Sos mi hogar estés donde estés.</div>
       </div>
 
       <div class="carousel-item">
         <div class="slide-wrapper p-0">
           <img src="foto3.jpg" alt="Foto 3">
         </div>
-        <div class="absolute bottom-0 bg-gradient-to-t from-black to-transparent w-full p-6 text-white text-center italic">Cada noche miro la misma luna que vos y le pido que te cuide hasta que pueda hacerlo yo con mis brazos.</div>
       </div>
 
       <div class="carousel-item">
         <div class="slide-wrapper p-0">
           <img src="foto4.jpg" alt="Foto 4">
         </div>
-        <div class="absolute bottom-0 bg-gradient-to-t from-black to-transparent w-full p-6 text-white text-center italic">No importa cuántos kilómetros nos separen, siempre vas a ser mi notificación favorita y mi razón para sonreír.</div>
       </div>
 
       <div class="carousel-item">
         <div class="slide-wrapper p-0">
           <img src="foto5.jpg" alt="Foto 5">
         </div>
-        <div class="absolute bottom-0 bg-gradient-to-t from-black to-transparent w-full p-6 text-white text-center italic">Esta distancia es solo una prueba más de que lo nuestro es de verdad.</div>
       </div>
 
       <div class="carousel-item">
         <div class="slide-wrapper p-0">
           <img src="foto6.jpg" alt="Foto 6">
         </div>
-        <div class="absolute bottom-0 bg-gradient-to-t from-black to-transparent w-full p-6 text-white text-center italic">Te extraño de noche, te quiero de día... y nunca lo olvides: te doy mi vida entera.</div>
       </div>
 
       <div class="carousel-item">
         <div class="slide-wrapper p-0">
           <img src="foto7.jpg" alt="Foto 7">
         </div>
-        <div class="absolute bottom-0 bg-gradient-to-t from-black to-transparent w-full p-6 text-white text-center italic">Las videollamadas no alcanzan para abrazarte, pero sí para recordarme por qué vale la pena esperar.</div>
       </div>
 
       <div class="carousel-item">
         <div class="slide-wrapper p-0">
           <img src="foto8.jpg" alt="Foto 8">
         </div>
-        <div class="absolute bottom-0 bg-gradient-to-t from-black to-transparent w-full p-6 text-white text-center italic">Sos la persona con la que quiero compartir todos mis 'algún día'.</div>
       </div>
 
       <div class="carousel-item">
         <div class="slide-wrapper p-0">
           <img src="foto9.jpg" alt="Foto 9">
         </div>
-        <div class="absolute bottom-0 bg-gradient-to-t from-black to-transparent w-full p-6 text-white text-center italic">En cada latido llevo tu nombre, y ningún océano ni frontera va a cambiar eso.</div>
       </div>
 
       <div class="carousel-item">
         <div class="slide-wrapper p-0">
           <img src="foto10.jpg" alt="Foto 10">
         </div>
-        <div class="absolute bottom-0 bg-gradient-to-t from-black to-transparent w-full p-6 text-white text-center italic">Hoy celebramos 3 años increíbles 💖</div>
       </div>
 
       <button onclick="moveSlide(-1)" class="absolute left-4 top-1/2 -translate-y-1/2 bg-black/60 p-4 rounded-full text-white hover:bg-red-500 transition">❮</button>
@@ -194,6 +184,7 @@
       let currentSlide = 0;
       const slides = document.querySelectorAll('.carousel-item');
       console.log('Slides detectadas:', slides.length); // debug: verifica que encuentre las 10
+
       function moveSlide(step) {
         slides[currentSlide].classList.remove('active');
         currentSlide = (currentSlide + step + slides.length) % slides.length;
@@ -201,6 +192,23 @@
       }
       window.moveSlide = moveSlide; 
       setInterval(() => moveSlide(1), 5000);
+
+      // Swipe táctil simple (opcional)
+      let touchStartX = 0;
+      const carouselContainer = document.querySelector('.relative.overflow-hidden');
+      if (carouselContainer) {
+        carouselContainer.addEventListener('touchstart', (e) => {
+          touchStartX = e.changedTouches[0].screenX;
+        }, {passive: true});
+        carouselContainer.addEventListener('touchend', (e) => {
+          const touchEndX = e.changedTouches[0].screenX;
+          const diff = touchEndX - touchStartX;
+          if (Math.abs(diff) > 40) {
+            if (diff < 0) moveSlide(1);
+            else moveSlide(-1);
+          }
+        }, {passive: true});
+      }
 
       // Corazones
       const heartsContainer = document.getElementById('hearts-container');
