@@ -11,31 +11,29 @@
     body { font-family: 'Quicksand', sans-serif; background: linear-gradient(to bottom, #1a1a1a, #4a1a1a); color: white; min-height: 100vh; }
     .font-love { font-family: 'Dancing Script', cursive; }
 
-    /* Carrusel optimizado */
-    .carousel-item { display: none; height: 100%; position: relative; }
-    .carousel-item.active { display: flex; align-items: center; justify-content: center; animation: fadeIn 1.2s; }
-    
-    /* Imagen principal que se ajusta */
-    .carousel-img {
-      max-width: 100%;
-      max-height: 100%;
-      object-fit: contain; /* Ajuste automático sin recortar */
-      z-index: 10;
-      position: relative;
-    }
-
-    /* Fondo desenfocado para fotos verticales/distintas */
-    .bg-blur {
-      position: absolute;
-      top: 0; left: 0; width: 100%; height: 100%;
-      background-size: cover;
-      background-position: center;
-      filter: blur(20px) brightness(0.4);
-      z-index: 1;
-    }
-
+    /* Carrusel: cada slide ocupa el flujo (no absolute) para que el contenedor ajuste su altura automáticamente */
+    .carousel-item { display: none; position: relative; width: 100%; }
+    .carousel-item.active { display: block; animation: fadeIn 1.2s; opacity: 1; }
     @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
+    /* Asegura que la imagen se escale proporcionalmente y se centre */
+    .carousel-item .slide-wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #111; /* color de fondo mientras carga la imagen */
+      width: 100%;
+    }
+    .carousel-item img {
+      width: 100%;
+      height: auto;        /* mantiene la proporción real de la imagen */
+      max-height: 80vh;    /* evita que una imagen muy alta rompa el layout */
+      object-fit: contain; /* muestra la imagen completa sin recortes */
+      display: block;
+      border-radius: 0.75rem;
+    }
+
+    /* Corazones flotantes */
     .heart { position: fixed; color: #ff4d4d; animation: float 6s linear infinite; z-index: 50; opacity: 0.85; pointer-events: none; }
     @keyframes float {
       0% { transform: translateY(100vh) rotate(0deg); opacity: 1; }
@@ -77,34 +75,80 @@
 
   <section class="max-w-5xl mx-auto px-4 py-20">
     <h2 class="text-5xl text-center font-love text-red-500 mb-12">Nuestra Historia en Fotos</h2>
-    <div class="relative overflow-hidden rounded-3xl shadow-[0_0_50px_rgba(0,0,0,0.5)] bg-black border-2 border-zinc-800 h-[500px] md:h-[600px]">
+    <div class="relative overflow-hidden rounded-3xl shadow-[0_0_50px_rgba(0,0,0,0.5)] bg-zinc-900 border-2 border-zinc-800">
 
       <div class="carousel-item active">
-        <div class="bg-blur" style="background-image: url('foto1.jpg');"></div>
-        <img src="foto1.jpg" class="carousel-img" alt="Foto 1">
-        <div class="absolute bottom-0 z-20 bg-gradient-to-t from-black/80 to-transparent w-full p-6 text-white text-center italic text-sm md:text-base">Aunque haya kilómetros de por medio, mi corazón late al ritmo de tu voz todos los días. Te amo infinito, Silvina.</div>
+        <div class="slide-wrapper p-0">
+          <img src="foto1.jpg" alt="Foto 1">
+        </div>
+        <div class="absolute bottom-0 bg-gradient-to-t from-black to-transparent w-full p-6 text-white text-center italic">Aunque haya kilómetros de por medio, mi corazón late al ritmo de tu voz todos los días. Te amo infinito, Silvina.</div>
       </div>
 
       <div class="carousel-item">
-        <div class="bg-blur" style="background-image: url('foto2.jpg');"></div>
-        <img src="foto2.jpg" class="carousel-img" alt="Foto 2">
-        <div class="absolute bottom-0 z-20 bg-gradient-to-t from-black/80 to-transparent w-full p-6 text-white text-center italic text-sm md:text-base">La distancia solo es un número; lo que siento por vos no entra en ningún mapa. Sos mi hogar estés donde estés.</div>
+        <div class="slide-wrapper p-0">
+          <img src="foto2.jpg" alt="Foto 2">
+        </div>
+        <div class="absolute bottom-0 bg-gradient-to-t from-black to-transparent w-full p-6 text-white text-center italic">La distancia solo es un número; lo que siento por vos no entra en ningún mapa. Sos mi hogar estés donde estés.</div>
       </div>
 
       <div class="carousel-item">
-        <div class="bg-blur" style="background-image: url('foto3.jpg');"></div>
-        <img src="foto3.jpg" class="carousel-img" alt="Foto 3">
-        <div class="absolute bottom-0 z-20 bg-gradient-to-t from-black/80 to-transparent w-full p-6 text-white text-center italic text-sm md:text-base">Cada noche miro la misma luna que vos y le pido que te cuide hasta que pueda hacerlo yo con mis brazos.</div>
+        <div class="slide-wrapper p-0">
+          <img src="foto3.jpg" alt="Foto 3">
+        </div>
+        <div class="absolute bottom-0 bg-gradient-to-t from-black to-transparent w-full p-6 text-white text-center italic">Cada noche miro la misma luna que vos y le pido que te cuide hasta que pueda hacerlo yo con mis brazos.</div>
       </div>
 
       <div class="carousel-item">
-        <div class="bg-blur" style="background-image: url('foto10.jpg');"></div>
-        <img src="foto10.jpg" class="carousel-img" alt="Foto 10">
-        <div class="absolute bottom-0 z-20 bg-gradient-to-t from-black/80 to-transparent w-full p-6 text-white text-center italic text-sm md:text-base">Hoy celebramos 3 años increíbles 💖</div>
+        <div class="slide-wrapper p-0">
+          <img src="foto4.jpg" alt="Foto 4">
+        </div>
+        <div class="absolute bottom-0 bg-gradient-to-t from-black to-transparent w-full p-6 text-white text-center italic">No importa cuántos kilómetros nos separen, siempre vas a ser mi notificación favorita y mi razón para sonreír.</div>
       </div>
 
-      <button onclick="moveSlide(-1)" class="absolute left-4 top-1/2 -translate-y-1/2 bg-black/60 p-4 rounded-full text-white hover:bg-red-500 transition z-30">❮</button>
-      <button onclick="moveSlide(1)" class="absolute right-4 top-1/2 -translate-y-1/2 bg-black/60 p-4 rounded-full text-white hover:bg-red-500 transition z-30">❯</button>
+      <div class="carousel-item">
+        <div class="slide-wrapper p-0">
+          <img src="foto5.jpg" alt="Foto 5">
+        </div>
+        <div class="absolute bottom-0 bg-gradient-to-t from-black to-transparent w-full p-6 text-white text-center italic">Esta distancia es solo una prueba más de que lo nuestro es de verdad.</div>
+      </div>
+
+      <div class="carousel-item">
+        <div class="slide-wrapper p-0">
+          <img src="foto6.jpg" alt="Foto 6">
+        </div>
+        <div class="absolute bottom-0 bg-gradient-to-t from-black to-transparent w-full p-6 text-white text-center italic">Te extraño de noche, te quiero de día... y nunca lo olvides: te doy mi vida entera.</div>
+      </div>
+
+      <div class="carousel-item">
+        <div class="slide-wrapper p-0">
+          <img src="foto7.jpg" alt="Foto 7">
+        </div>
+        <div class="absolute bottom-0 bg-gradient-to-t from-black to-transparent w-full p-6 text-white text-center italic">Las videollamadas no alcanzan para abrazarte, pero sí para recordarme por qué vale la pena esperar.</div>
+      </div>
+
+      <div class="carousel-item">
+        <div class="slide-wrapper p-0">
+          <img src="foto8.jpg" alt="Foto 8">
+        </div>
+        <div class="absolute bottom-0 bg-gradient-to-t from-black to-transparent w-full p-6 text-white text-center italic">Sos la persona con la que quiero compartir todos mis 'algún día'.</div>
+      </div>
+
+      <div class="carousel-item">
+        <div class="slide-wrapper p-0">
+          <img src="foto9.jpg" alt="Foto 9">
+        </div>
+        <div class="absolute bottom-0 bg-gradient-to-t from-black to-transparent w-full p-6 text-white text-center italic">En cada latido llevo tu nombre, y ningún océano ni frontera va a cambiar eso.</div>
+      </div>
+
+      <div class="carousel-item">
+        <div class="slide-wrapper p-0">
+          <img src="foto10.jpg" alt="Foto 10">
+        </div>
+        <div class="absolute bottom-0 bg-gradient-to-t from-black to-transparent w-full p-6 text-white text-center italic">Hoy celebramos 3 años increíbles 💖</div>
+      </div>
+
+      <button onclick="moveSlide(-1)" class="absolute left-4 top-1/2 -translate-y-1/2 bg-black/60 p-4 rounded-full text-white hover:bg-red-500 transition">❮</button>
+      <button onclick="moveSlide(1)" class="absolute right-4 top-1/2 -translate-y-1/2 bg-black/60 p-4 rounded-full text-white hover:bg-red-500 transition">❯</button>
     </div>
   </section>
 
@@ -128,6 +172,7 @@
 
   <script>
     document.addEventListener('DOMContentLoaded', () => {
+      // Contador desde 05/01/2023
       const fechaInicio = new Date('January 5, 2023 00:00:00').getTime();
       const daysEl = document.getElementById('days');
       const hoursEl = document.getElementById('hours');
@@ -145,8 +190,10 @@
       actualizarContador();
       setInterval(actualizarContador, 1000);
 
+      // Carrusel
       let currentSlide = 0;
       const slides = document.querySelectorAll('.carousel-item');
+      console.log('Slides detectadas:', slides.length); // debug: verifica que encuentre las 10
       function moveSlide(step) {
         slides[currentSlide].classList.remove('active');
         currentSlide = (currentSlide + step + slides.length) % slides.length;
@@ -155,6 +202,7 @@
       window.moveSlide = moveSlide; 
       setInterval(() => moveSlide(1), 5000);
 
+      // Corazones
       const heartsContainer = document.getElementById('hearts-container');
       setInterval(() => {
         const heart = document.createElement('div');
